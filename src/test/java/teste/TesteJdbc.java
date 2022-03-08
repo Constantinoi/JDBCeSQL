@@ -90,4 +90,17 @@ public class TesteJdbc {
 
 	}
 
+	@Test
+	public void deletaEmCascata() {
+		UserPosDao dao = new UserPosDao();
+
+		try {
+			dao.deleteFonePorUser(3L);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
 }

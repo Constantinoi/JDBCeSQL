@@ -152,7 +152,7 @@ public class UserPosDao {
 
 		String sql = " SELECT nome,numero,email from telefoneuser as fone ";
 		sql += " INNER JOIN userposjava as userp ";
- 		sql += " on fone.usuariopessoa = userp.id ";
+		sql += " on fone.usuariopessoa = userp.id ";
 		sql += " where userp.id = ? ";
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql);
@@ -177,5 +177,32 @@ public class UserPosDao {
 		}
 
 		return list;
+	}
+
+	public void deleteFonePorUser(Long id) {
+		try {
+			String sql = "DELETE FROM telefoneuser WHERE usuariopessoa = ? ";
+			String sqlUser = "DELETE FROM userposjava WHERE id = ? ";
+
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setLong(1, id);
+			statement.executeUpdate();
+			connection.commit();
+
+			statement = connection.prepareStatement(sqlUser);
+			statement.setLong(1, id);
+			statement.executeUpdate();
+			connection.commit();
+
+			connection.commit();
+
+		} catch (Exception e) {
+			try {
+				connection.rollback();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+			e.printStackTrace();
+		}
 	}
 }
