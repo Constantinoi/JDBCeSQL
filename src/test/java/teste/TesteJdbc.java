@@ -66,11 +66,27 @@ public class TesteJdbc {
 		Telefone tel = new Telefone();
 		UserPosDao dao = new UserPosDao();
 
-		tel.setNumero("(95)0999999");
+		tel.setNumero("(95)1544444");
 		tel.setTipo("CASA");
-		tel.setNrUser(2L);
+		tel.setNrUser(5L);
 
 		dao.salvarTelefone(tel);
+
+	}
+
+	@Test
+	public void buscaUSuarioCompleto() {
+		Userposjava user = new Userposjava();
+		UserPosDao dao = new UserPosDao();
+
+		try {
+			user = dao.buscar(2L);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		dao.listaCompleta(user.getId());
 
 	}
 
